@@ -135,13 +135,13 @@ public class ArvoreController {
 			}
 			else {
 				if(valor < atual.getValor()) {
-					antecessores.addAll(buscar(atual.getEsq(), valor));  
+					antecessores = buscar(atual.getEsq(), valor);  
 				}
 				else {
-					antecessores.addAll(buscar(atual.getDir(), valor));
+					antecessores = buscar(atual.getDir(), valor);
 				}
-				antecessores.add(atual);
 			}
+			antecessores.add(atual);
 		}
 		return antecessores;
 	}
