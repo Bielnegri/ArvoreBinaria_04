@@ -1,8 +1,7 @@
 package controller;
 
 import model.No;
-
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class ArvoreController {
 	private No raiz;
@@ -116,29 +115,34 @@ public class ArvoreController {
 		}
 	}
 	
-	public void mostrarFolhas() {
+	public void buscarNo(int valor) {
 		No atual = raiz;
-		LinkedList<No> antecessores = buscar(atual);
+		Stack<No> antecessores = buscar(atual, valor);
 		
-		System.out.println("Folhas da árvore: "  );
+		System.out.println("Antecessores do nó encontrado: " + "(" + valor + ")");
 		while(!antecessores.isEmpty()) {
-			No no = antecessores.remove();
+			No no = antecessores.pop();
 			System.out.println(no.getValor());
 		}
 	}
 	
-	private LinkedList<No> buscar(No atual) { 
-		LinkedList<No> folhas = new LinkedList<No>();
+	private Stack<No> buscar(No atual, int valor) { 
+		Stack<No> antecessores = new Stack<No>();
 		
 		if(atual != null){
-			if(atual.getEsq() == null && atual.getDir() == null) {
-				folhas.add(atual);
+			if(atual.getValor() == valor) {
+				return antecessores;
 			}
 			else {
-				folhas.addAll(buscar(atual.getEsq()));
-				folhas.addAll(buscar(atual.getDir()));
+				if(valor < atual.getValor()) {
+					antecessores.addAll(buscar(atual.getEsq(), valor));  
+				}
+				else {
+					antecessores.addAll(buscar(atual.getDir(), valor));
+				}
+				antecessores.add(atual);
 			}
 		}
-		return folhas;
+		return antecessores;
 	}
 }
