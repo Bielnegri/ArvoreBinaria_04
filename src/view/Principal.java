@@ -16,7 +16,7 @@ public class Principal {
 		
 		cont.exibir();
 		
-		cont.buscarNo(4);
+		cont.mostrarFolhas();
 	}
 
 }
